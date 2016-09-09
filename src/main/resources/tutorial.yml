@@ -1,0 +1,57 @@
+id: tutorial-id
+name: Tutorial Name
+steps:
+- freeze: true
+  clear-inventory: true
+  fly: false
+  gamemode: creative
+#  world: world
+#  location: 100, 100, -50.5
+  yaw: 90
+  pitch: 0
+  chat:
+  - '&cWelcome to the Tutorial!'
+  - '&dThis is the second line of the tutorial!'
+  popup:
+    title: '&cTitle Popup!'
+    subtitle: '&dWow, such big text!'
+    fade-in: 0.5
+    stay: 3.0
+    fade-out: 0.5
+  inventory:
+    0:
+      type: stone
+      amount: 32
+      data: 0
+    1:
+      type: stone sword
+    2:
+      type: ink sack
+      data: 9
+- freeze: true
+  clear-inventory: true
+  fly: false
+  gamemode: creative
+#  world: world
+  location: 100, 100, -50.5
+  yaw: 90
+  pitch: 0
+  chat:
+  - '&cWelcome to the Tutorial!'
+  - '&dThis is the second line of the tutorial!'
+  popup:
+    title: '&cTitle Popup 2!'
+    subtitle: '&dWow, such big text!'
+    fade-in: 0.5
+    stay: 3.0
+    fade-out: 0.5
+  inventory:
+    0:
+      type: stone
+      amount: 32
+      data: 0
+    1:
+      type: stone sword
+    2:
+      type: ink sack
+      data: 9

@@ -44,6 +44,9 @@ public class ActiveTutorialListener implements Listener {
         if (!isThePlayer(event.getEntity()))
             return;
 
+        if (!event.getDismounted().hasMetadata(TutorialStep.FROZEN_METADATA))
+            return;
+
         if (this.tutorial.getCurrentStep().isFrozen())
             event.setCancelled(true);
     }

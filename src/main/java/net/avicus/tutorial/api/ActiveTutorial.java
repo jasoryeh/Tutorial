@@ -77,7 +77,7 @@ public class ActiveTutorial {
 
         // Hide previous step, for all but first step.
         if (this.currentStep > 0)
-            hideState(this.currentStep - 1);
+        hideState(this.currentStep - 1);
 
         // Show the current step.
         getCurrentStep().show(this.player);

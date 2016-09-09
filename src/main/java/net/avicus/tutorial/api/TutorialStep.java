@@ -21,7 +21,7 @@ import java.util.Optional;
  * A single step in a tutorial.
  */
 public class TutorialStep {
-    private static final String METADATA_TAG = "tutorial.freeze";
+    public static final String FROZEN_METADATA = "tutorial.freeze";
 
     private final boolean freeze;
     private final boolean clearInventory;
@@ -153,7 +153,7 @@ public class TutorialStep {
             stand.setMarker(true);
             stand.setGravity(false);
             stand.setPassenger(player);
-            stand.setMetadata(METADATA_TAG, new FixedMetadataValue(TutorialPlugin.getInstance(), true));
+            stand.setMetadata(FROZEN_METADATA, new FixedMetadataValue(TutorialPlugin.getInstance(), true));
         }
     }
 
@@ -167,7 +167,8 @@ public class TutorialStep {
 
         if (player.getVehicle() != null) {
             Entity vehicle = player.getVehicle();
-            if (vehicle.hasMetadata(METADATA_TAG)) {
+            if (vehicle.hasMetadata(FROZEN_METADATA)) {
+                vehicle.removeMetadata(FROZEN_METADATA, TutorialPlugin.getInstance());
                 player.getVehicle().remove();
             }
         }
