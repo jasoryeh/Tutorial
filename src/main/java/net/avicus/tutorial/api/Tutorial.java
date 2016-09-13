@@ -9,15 +9,15 @@ import java.util.Optional;
 public class Tutorial {
     private final Optional<String> id;
     private final String name;
-    private final List<TutorialStep> steps;
+    private final List<? extends TutorialStep> steps;
 
-    public Tutorial(Optional<String> id, String name, List<TutorialStep> steps) {
+    public Tutorial(Optional<String> id, String name, List<? extends TutorialStep> steps) {
         this.id = id;
         this.name = name;
         this.steps = steps;
     }
 
-    public Tutorial(Optional<String> id, String name, TutorialStep... steps) {
+    public Tutorial(Optional<String> id, String name, SimpleTutorialStep... steps) {
         this(id, name, Arrays.asList(steps));
     }
 
@@ -54,7 +54,7 @@ public class Tutorial {
      * Get the collection of steps that this tutorial contains.
      * @return
      */
-    public List<TutorialStep> getSteps() {
+    public List<? extends TutorialStep> getSteps() {
         return this.steps;
     }
 }

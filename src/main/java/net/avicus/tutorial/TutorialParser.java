@@ -1,7 +1,8 @@
 package net.avicus.tutorial;
 
 import net.avicus.tutorial.api.Tutorial;
-import net.avicus.tutorial.api.TutorialStep;
+import net.avicus.tutorial.api.SimpleTutorialStep;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -17,7 +18,7 @@ public class TutorialParser {
     public static Tutorial parseTutorial(ConfigurationSection config) {
         Optional<String> id = Optional.ofNullable(config.getString("id"));
         String name = config.getString("name");
-        List<TutorialStep> steps = new ArrayList<>();
+        List<SimpleTutorialStep> steps = new ArrayList<>();
 
         for (Map<?, ?> stepMap : config.getMapList("steps")) {
             ConfigurationSection stepConfig = new YamlConfiguration();
@@ -30,7 +31,7 @@ public class TutorialParser {
         return new Tutorial(id, name, steps);
     }
 
-    public static TutorialStep parseTutorialStep(ConfigurationSection config) {
+    public static SimpleTutorialStep parseTutorialStep(ConfigurationSection config) {
         boolean freeze = config.getBoolean("freeze", true);
         boolean clearInventory = config.getBoolean("clear-inventory", true);
         boolean fly = config.getBoolean("fly", false);
@@ -42,11 +43,13 @@ public class TutorialParser {
         Optional<Float> yaw = parseFloat(config.getString("yaw"));
         Optional<Float> pitch = parseFloat(config.getString("pitch"));
 
-        Optional<List<String>> chat = Optional.empty();
+        Optional<List<TextComponent>> chat = Optional.empty();
         if (config.contains("chat")) {
             chat = Optional.of(new ArrayList<>());
-            for (String line : config.getStringList("chat"))
-                chat.get().add(ChatColor.translateAlternateColorCodes('&', line));
+            for (String line : config.getStringList("chat")) {
+                String colored = ChatColor.translateAlternateColorCodes('&', line);
+                chat.get().add(new TextComponent(colored));
+            }
         }
 
         Optional<Title> popup = Optional.empty();
@@ -74,7 +77,7 @@ public class TutorialParser {
             }
         }
 
-        return new TutorialStep(
+        return new SimpleTutorialStep(
                 freeze,
                 clearInventory,
                 fly,
