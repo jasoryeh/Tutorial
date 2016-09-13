@@ -15,9 +15,11 @@ public class ActiveTutorial {
     private final ActionResult commandResult;
     private final ActionResult chatResult;
     private final ActiveTutorialListener listener;
+    private final ActiveTutorialTask task;
 
     private PlayerState savedState;
     private int currentStep;
+    private long stepEnterTime;
 
     public ActiveTutorial(Tutorial tutorial, Player player, ActionResult commandResult, ActionResult chatResult) {
         this.tutorial = tutorial;
@@ -25,6 +27,7 @@ public class ActiveTutorial {
         this.commandResult = commandResult;
         this.chatResult = chatResult;
         this.listener = new ActiveTutorialListener(this);
+        this.task = new ActiveTutorialTask(this);
     }
 
     /**
@@ -34,27 +37,27 @@ public class ActiveTutorial {
         // Save current state
         this.savedState = PlayerState.of(this.player);
         Bukkit.getServer().getPluginManager().registerEvents(this.listener, TutorialPlugin.getInstance());
+        this.task.start();
         setStep(0);
     }
 
     /**
      * Stops the tutorial.
-     * @param restoreState True to restore the state of which the player began the tutorial.
      */
-    public void stop(boolean restoreState) {
+    public void stop() {
         Preconditions.checkArgument(isStarted(), "Tutorial not started.");
 
         // Hide the last state
         hideState(this.currentStep);
 
         // Apply original state
-        if (restoreState) {
-            this.savedState.apply(this.player);
-        }
+        this.savedState.apply(this.player);
         this.savedState = null;
 
         HandlerList.unregisterAll(this.listener);
+        this.task.cancel();
         this.currentStep = 0;
+        this.stepEnterTime = 0;
     }
 
     /**
@@ -74,6 +77,7 @@ public class ActiveTutorial {
         Preconditions.checkArgument(this.tutorial.hasStep(index), "Step does not exist.", index);
 
         this.currentStep = index;
+        this.stepEnterTime = System.currentTimeMillis();
 
         // Hide previous step, for all but first step.
         if (this.currentStep > 0)
@@ -81,6 +85,26 @@ public class ActiveTutorial {
 
         // Show the current step.
         getCurrentStep().show(this.player);
+    }
+
+    public void setNextStep() {
+        Preconditions.checkArgument(isStarted(), "Tutorial not started.");
+
+        int next = this.currentStep + 1;
+        if (!this.tutorial.hasStep(next))
+            stop();
+        else
+            setStep(next);
+    }
+
+    public void setPreviousStep() {
+        Preconditions.checkArgument(isStarted(), "Tutorial not started.");
+
+        int prev = this.currentStep - 1;
+        if (!this.tutorial.hasStep(prev))
+            setStep(this.currentStep);
+        else
+            setStep(prev);
     }
 
     private void hideState(int state) {
@@ -93,6 +117,10 @@ public class ActiveTutorial {
      */
     public TutorialStep getCurrentStep() {
         return this.tutorial.getSteps().get(this.currentStep);
+    }
+
+    public long getCurrentStepEnterTime() {
+        return this.stepEnterTime;
     }
 
     /**

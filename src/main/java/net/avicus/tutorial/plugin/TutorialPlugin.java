@@ -41,7 +41,7 @@ public class TutorialPlugin extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onTutorial(PlayerInteractEvent event) {
+    public void onTutorial(PlayerChatEvent event) {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(new InputStreamReader(getResource("tutorial.yml")));
         Tutorial tutorial = TutorialParser.parseTutorial(config);
 //        TutorialStep step1 = new TutorialStep(
@@ -76,15 +76,5 @@ public class TutorialPlugin extends JavaPlugin implements Listener {
 
         ActiveTutorial active = tutorial.create(event.getPlayer(), ActionResult.EXIT, ActionResult.EXIT);
         active.start();
-
-        getServer().getScheduler().runTaskLater(this, () -> {
-            if (active.isStarted())
-                active.setStep(1);
-        }, 20 * 3);
-
-        getServer().getScheduler().runTaskLater(this, () -> {
-            if (active.isStarted())
-                active.stop(true);
-        }, 20 * 6);
     }
 }

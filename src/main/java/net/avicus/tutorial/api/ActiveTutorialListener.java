@@ -6,8 +6,10 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 import java.util.Objects;
@@ -30,12 +32,25 @@ public class ActiveTutorialListener implements Listener {
             case DISALLOW:
                 return true;
             case EXIT:
-                Bukkit.getServer().getScheduler().runTask(TutorialPlugin.getInstance(), () -> {
-                    this.tutorial.stop(true);
-                });
+                Bukkit.getServer().getScheduler().runTask(TutorialPlugin.getInstance(), this.tutorial::stop);
                 return false;
             default:
                 return false;
+        }
+    }
+
+    @EventHandler
+    public void onChangeStep(PlayerInteractEvent event) {
+        if (event.getAction() != Action.LEFT_CLICK_AIR && event.getAction() != Action.LEFT_CLICK_BLOCK)
+            return;
+
+        if (!isThePlayer(event.getPlayer()))
+            return;
+
+        TutorialStep step = this.tutorial.getCurrentStep();
+
+        if (!step.getCountdown().isPresent()) {
+            this.tutorial.setNextStep();
         }
     }
 

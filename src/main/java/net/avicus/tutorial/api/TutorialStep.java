@@ -26,6 +26,7 @@ public class TutorialStep {
     private final boolean freeze;
     private final boolean clearInventory;
     private final boolean fly;
+    private final Optional<Double> countdown;
     private final Optional<GameMode> gamemode;
     private final Optional<String> worldName;
     private final Optional<Vector> position;
@@ -39,6 +40,8 @@ public class TutorialStep {
      * Constructor
      * @param freeze If the player should be frozen in place during this step.
      * @param clearInventory If the player's inventory should be cleared.
+     * @param fly If the player should be set to flying upon entering this step.
+     * @param countdown Specify when this step should end.
      * @param gamemode Set the gamemode of the player during this step.
      * @param worldName Teleport the player to a different world.
      * @param position Teleport the player to a new position.
@@ -51,6 +54,7 @@ public class TutorialStep {
     public TutorialStep(boolean freeze,
                         boolean clearInventory,
                         boolean fly,
+                        Optional<Double> countdown,
                         Optional<GameMode> gamemode,
                         Optional<String> worldName,
                         Optional<Vector> position,
@@ -62,6 +66,7 @@ public class TutorialStep {
         this.freeze = freeze;
         this.clearInventory = clearInventory;
         this.fly = fly;
+        this.countdown = countdown;
         this.gamemode = gamemode;
         this.worldName = worldName;
         this.position = position;
@@ -70,6 +75,10 @@ public class TutorialStep {
         this.chat = chat;
         this.title = title;
         this.inventory = inventory;
+    }
+
+    public Optional<Double> getCountdown() {
+        return this.countdown;
     }
 
     public boolean isFrozen() {

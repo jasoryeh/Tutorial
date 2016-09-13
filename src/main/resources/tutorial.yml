@@ -5,6 +5,7 @@ steps:
   clear-inventory: true
   fly: false
   gamemode: creative
+  countdown: 3.5
 #  world: world
 #  location: 100, 100, -50.5
   yaw: 90
