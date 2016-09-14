@@ -25,6 +25,10 @@ public class Tutorial {
         return new ActiveTutorial(this, player, commandResult, chatResult);
     }
 
+    public ActiveTutorial create(Player player, ActionResult commandResult, ActionResult chatResult, ActiveTutorialCallback onStart, ActiveTutorialCallback onStop) {
+        return new ActiveTutorial(this, player, commandResult, chatResult, onStart, onStop);
+    }
+
     /**
      * The id of this tutorial, which is optional.
      * @return

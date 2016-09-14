@@ -36,6 +36,8 @@ public class TutorialParser {
         boolean clearInventory = config.getBoolean("clear-inventory", true);
         boolean fly = config.getBoolean("fly", false);
 
+        Optional<Double> countdown = parseDouble(config.getString("countdown"));
+
         Optional<GameMode> gamemode = parseGameMode(config.getString("gamemode"));
         Optional<String> worldName = Optional.ofNullable(config.getString("world"));
 
@@ -81,6 +83,7 @@ public class TutorialParser {
                 freeze,
                 clearInventory,
                 fly,
+                countdown,
                 gamemode,
                 worldName,
                 position,
@@ -90,6 +93,10 @@ public class TutorialParser {
                 popup,
                 inventory
         );
+    }
+
+    private static Optional<Double> parseDouble(String text) {
+        return text == null ? Optional.empty() : Optional.of(Double.parseDouble(text));
     }
 
     private static int secondsToTicks(double seconds) {

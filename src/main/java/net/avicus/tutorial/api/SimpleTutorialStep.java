@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.github.paperspigot.Title;
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +18,7 @@ public class SimpleTutorialStep extends AbstractTutorialStep {
     private final boolean freeze;
     private final boolean clearInventory;
     private final boolean fly;
+    private final Optional<Double> countdown;
     private final Optional<GameMode> gamemode;
     private final Optional<String> worldName;
     private final Optional<Vector> position;
@@ -32,6 +32,8 @@ public class SimpleTutorialStep extends AbstractTutorialStep {
      * Constructor
      * @param freeze If the player should be frozen in place during this step.
      * @param clearInventory If the player's inventory should be cleared.
+     * @param fly If the player should be set to flying.
+     * @param countdown Countdown to next tutorial step.
      * @param gamemode Set the gamemode of the player during this step.
      * @param worldName Teleport the player to a different world.
      * @param position Teleport the player to a new position.
@@ -44,6 +46,7 @@ public class SimpleTutorialStep extends AbstractTutorialStep {
     public SimpleTutorialStep(boolean freeze,
                               boolean clearInventory,
                               boolean fly,
+                              Optional<Double> countdown,
                               Optional<GameMode> gamemode,
                               Optional<String> worldName,
                               Optional<Vector> position,
@@ -55,6 +58,7 @@ public class SimpleTutorialStep extends AbstractTutorialStep {
         this.freeze = freeze;
         this.clearInventory = clearInventory;
         this.fly = fly;
+        this.countdown = countdown;
         this.gamemode = gamemode;
         this.worldName = worldName;
         this.position = position;
@@ -78,6 +82,11 @@ public class SimpleTutorialStep extends AbstractTutorialStep {
     @Override
     public boolean isClearInventory() {
         return this.clearInventory;
+    }
+
+    @Override
+    public Optional<Double> getCountdown() {
+        return null;
     }
 
     @Override

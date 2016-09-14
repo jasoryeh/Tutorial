@@ -22,6 +22,8 @@ public interface TutorialStep {
 
     boolean isClearInventory();
 
+    Optional<Double> getCountdown();
+
     Optional<String> getWorldName();
 
     Optional<GameMode> getGameMode();
