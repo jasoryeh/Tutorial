@@ -47,7 +47,7 @@ public class ActiveTutorialListener implements Listener {
         if (!isThePlayer(event.getPlayer()))
             return;
 
-        this.tutorial.setPreviousStep();
+        this.tutorial.setNextStep();
     }
 
     @EventHandler

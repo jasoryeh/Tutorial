@@ -73,7 +73,7 @@ public class TutorialParser {
 
                 Material material = Material.valueOf(itemConfig.getString("type").toUpperCase().replace(" ", "_"));
                 int amount = itemConfig.getInt("amount", 1);
-                byte data = (byte) itemConfig.getInt("data", 1);
+                byte data = (byte) itemConfig.getInt("data", 0);
 
                 inventory.get().put(slot, new ItemStack(material, amount, data));
             }

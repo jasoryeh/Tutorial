@@ -86,7 +86,7 @@ public class SimpleTutorialStep extends AbstractTutorialStep {
 
     @Override
     public Optional<Double> getCountdown() {
-        return null;
+        return this.countdown;
     }
 
     @Override
