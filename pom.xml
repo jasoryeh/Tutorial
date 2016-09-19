@@ -20,6 +20,17 @@
         <developerConnection>scm:git:ssh://github.com/Avicus/RequirePlugins.git</developerConnection>
         <url>https://github.com/Avicus/RequirePlugins</url>
     </scm>
+    
+    <distributionManagement>
+        <repository>
+            <id>avicus-repo</id>
+            <url>https://repo.avicus.net/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>avicus-repo</id>
+            <url>https://repo.avicus.net/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <repositories>
         <repository>
