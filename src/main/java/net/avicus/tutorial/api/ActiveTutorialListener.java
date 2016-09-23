@@ -10,6 +10,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 import java.util.Objects;
@@ -76,5 +77,10 @@ public class ActiveTutorialListener implements Listener {
             return;
 
         event.setCancelled(onAction(this.tutorial.getChatResult()));
+    }
+
+    @EventHandler
+    public void hideNewPlayers(PlayerJoinEvent event) {
+        this.tutorial.getPlayer().hidePlayer(event.getPlayer());
     }
 }

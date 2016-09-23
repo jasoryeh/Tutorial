@@ -48,6 +48,10 @@ public class ActiveTutorial {
         this.task.start();
         setStep(0);
 
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            this.player.hidePlayer(player);
+        }
+
         this.onStart.run(this);
     }
 
@@ -68,6 +72,10 @@ public class ActiveTutorial {
         this.task.cancel();
         this.currentStep = 0;
         this.stepEnterTime = 0;
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            this.player.showPlayer(player);
+        }
 
         this.onStop.run(this);
     }
