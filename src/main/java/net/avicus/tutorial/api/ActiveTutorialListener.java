@@ -79,7 +79,7 @@ public class ActiveTutorialListener implements Listener {
         event.setCancelled(onAction(this.tutorial.getChatResult()));
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void hideNewPlayers(PlayerJoinEvent event) {
         this.tutorial.getPlayer().hidePlayer(event.getPlayer());
     }
