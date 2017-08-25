@@ -1,5 +1,8 @@
 package net.avicus.tutorial.api;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -7,36 +10,33 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.github.paperspigot.Title;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 public interface TutorialStep {
-    void show(Player player);
 
-    void hide(Player player);
+  void show(Player player);
 
-    boolean isFlyEnabled();
+  void hide(Player player);
 
-    boolean isFrozen();
+  boolean isFlyEnabled();
 
-    boolean isClearInventory();
+  boolean isFrozen();
 
-    Optional<Double> getCountdown();
+  boolean isClearInventory();
 
-    Optional<String> getWorldName();
+  Optional<Double> getCountdown();
 
-    Optional<GameMode> getGameMode();
+  Optional<String> getWorldName();
 
-    Optional<Vector> getPosition();
+  Optional<GameMode> getGameMode();
 
-    Optional<Float> getYaw();
+  Optional<Vector> getPosition();
 
-    Optional<Float> getPitch();
+  Optional<Float> getYaw();
 
-    Optional<Title> getTitle(Player player);
+  Optional<Float> getPitch();
 
-    Optional<List<TextComponent>> getChat(Player player);
+  Optional<Title> getTitle(Player player);
 
-    Optional<Map<Integer, ItemStack>> getInventory();
+  Optional<List<TextComponent>> getChat(Player player);
+
+  Optional<Map<Integer, ItemStack>> getInventory();
 }
